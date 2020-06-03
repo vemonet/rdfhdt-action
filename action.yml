@@ -1,0 +1,26 @@
+name: 'HDT compression for RDF'
+description: 'Run the RDF HDT cpp implementation to convert RDF to HDT (or the other way around)'
+branding:
+  icon: 'save' 
+  color: 'blue'
+inputs:
+  operation:
+    description: 'rdf2hdt or hdt2rdf'
+    required: false
+    default: 'rdf2hdt'
+  input:
+    description: 'Input file (RDF for rdf2hdt, HDT for hdt2rdf)'
+    required: true
+  output:
+    description: 'Output file (HDT for rdf2hdt, RDF for hdt2rdf)'
+    required: true     
+outputs:
+  hdt_output:
+    description: 'HDT file generated (or RDF)'
+runs:
+  using: 'docker'
+  image: docker://rdfhdt/hdt-cpp:latest
+  args:
+    - ${{ inputs.operation }}
+    - ${{ inputs.input }}
+    - ${{ inputs.output }}
